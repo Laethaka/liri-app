@@ -17,12 +17,16 @@ var userInput = process.argv[2];
 
 switch(userInput) {
     case 'my-tweets':
-        client.get('favorites/list', function(error, tweets, response) {
+        arr = [];
+        client.get('statuses/user_timeline/830446152042573824/', {count: 20}, function(error, tweets, response) {
             if(error) {
                 console.log(error)
             };
-            console.log(tweets);  // The favorites.
-            // console.log(response);  // Raw response object.
+            for (let i=0; i<tweets.length; i++) {
+                arr.push(tweets[i].created_at)
+                arr.push(tweets[i].text);
+            }
+            console.log(arr);
         });
     case 'spotify-this-song':
 
